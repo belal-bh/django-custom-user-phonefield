@@ -37,7 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third Party Apps
+    'phonenumber_field',
+
+    # Local Apps
+    'accounts',
 ]
+
+AUTH_USER_MODEL = 'accounts.User' #changes the built-in user model to ours
+LOGIN_URL = '/login/'
+LOGIN_URL_REDIRECT = '/'
+LOGOUT_URL = '/logout/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,12 +60,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGOUT_REDIRECT_URL = '/login/'
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.joinpath('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +130,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR.joinpath("staticfiles"),
+]
+
+STATIC_ROOT = BASE_DIR.parent.joinpath("static_cdn", "static_root")
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR.parent.joinpath("static_cdn", "media_root")
+
+PROTECTED_ROOT = BASE_DIR.parent.joinpath("static_cdn", "protected_media")
